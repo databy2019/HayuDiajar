@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
-import netifaces
+#import netifaces
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +28,7 @@ DEBUG = True
 
 # Find out what the IP addresses are at run time
 # This is necessary because otherwise Gunicorn will reject the connections
-def ip_addresses():
+''' def ip_addresses():
     ip_list = []
     for interface in netifaces.interfaces():
         addrs = netifaces.ifaddresses(interface)
@@ -37,9 +37,9 @@ def ip_addresses():
                 ip_list.append(addrs[x][0]['addr'])
     return ip_list
 
-ALLOWED_HOSTS = ip_addresses()
+ALLOWED_HOSTS = ip_addresses() '''
 
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -89,8 +89,12 @@ WSGI_APPLICATION = 'hayudiajar.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': '12345678!',
+        'HOST': '165.22.251.182',
+        'PORT': '5432',
     }
 }
 
